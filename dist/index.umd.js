@@ -79,7 +79,6 @@
                     Reflect.defineMetadata(providerToken, provider, this.module);
                 }
                 this.providers.set(providerToken, providerInstance);
-                return providerInstance;
             }
         }
         ;

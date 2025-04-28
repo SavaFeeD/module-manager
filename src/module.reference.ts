@@ -58,7 +58,6 @@ export class ModuleRef {
       }
 
       this.providers.set(providerToken, providerInstance);
-      return providerInstance;
     };
   };
 
