@@ -1,0 +1,6 @@
+dist
+dist_test
+node_modules
+.git
+.lock-wscript
+stats.html
