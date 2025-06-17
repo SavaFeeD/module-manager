@@ -15,8 +15,18 @@ An example of using all the features in one example is in the `__tests__` folder
 
 # Start
 
+NPM package:
+
 ```bash
 npm i @savafeed/module-manager
+```
+
+or CDN:
+
+```bash
+https://unpkg.com/@savafeed/module-manager@1.1.3/dist/index.cjs.js
+https://unpkg.com/@savafeed/module-manager@1.1.3/dist/index.esm.js
+https://unpkg.com/@savafeed/module-manager@1.1.3/dist/index.umd.js
 ```
 
 Main dependency - `reflect-metadata`
