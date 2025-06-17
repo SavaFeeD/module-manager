@@ -1,12 +1,13 @@
 import { Inject, Injectable } from "../../src";
 import schema from './mock/person.json' assert { type: 'json' };
-import { AbstractPriceService } from "./types/price-service.type";
+import { IAbstractPriceService } from "./types/price-service.type";
 
 @Injectable()
 export class AppRepository {
   
   constructor(
-    @Inject('PRICE_SERVICE') private priceService: AbstractPriceService,
+    // ! You cannot use a class type for a property decorator to define the parameter type, only objects
+    @Inject('PRICE_SERVICE') private priceService: IAbstractPriceService,
   ) {};
   
   mock() {

@@ -2,8 +2,9 @@ import { Module } from "../../src";
 import { AppController } from "./app.controller";
 import { AppRepository } from "./app.repository";
 import { AppService } from "./app.service";
+import { AbstractPriceService } from "./types/price-service.type";
 
-class PriceService {
+class PriceService implements AbstractPriceService {
   getPrice(currentCurrency: string) {
     return {
       price: 100,
