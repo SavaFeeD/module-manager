@@ -1,12 +1,12 @@
-import { Inject, Injectable } from "../../src";
-import { AppRepository } from "./app.repository";
+import { Inject, Injectable } from '../../src';
+import { AppRepository } from './app.repository';
 
 @Injectable()
 export class AppService {
   constructor(
     private appRepository: AppRepository,
-    @Inject('CONFIG_TOKEN') private config: any,
-  ) {};
+    @Inject('CONFIG_TOKEN') private config: any
+  ) {}
 
   getBuildInfo() {
     return {

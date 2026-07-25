@@ -23,5 +23,4 @@ export class Queue<T> {
   public toArray() {
     return Object.values(this._storage);
   }
-
 }

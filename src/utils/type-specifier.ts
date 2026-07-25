@@ -1,5 +1,4 @@
 export class TypeSpecifier {
-
   static isClass(input: any) {
     return (
       !TypeSpecifier.isFunction(input) &&
@@ -25,5 +24,4 @@ export class TypeSpecifier {
       return false;
     }
   }
-
 }

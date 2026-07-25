@@ -5,13 +5,12 @@ import { E_PROVIDER_TYPES } from '../types/provider-types.enum';
 
 export function Module(options: ModuleOptions): ClassDecorator {
   return (target) => {
-
     Reflect.defineProperty(target, 'name', {
       value: options.name,
       writable: false,
       configurable: false,
     });
-    
+
     Reflect.defineProperty(target, 'controllers', {
       value: options.controllers,
       writable: false,
@@ -26,7 +25,7 @@ export function Module(options: ModuleOptions): ClassDecorator {
 
     registerProviders(options.providers);
   };
-};
+}
 
 function registerProviders(providers?: any[]) {
   providers?.forEach((provider) => {
@@ -35,4 +34,4 @@ function registerProviders(providers?: any[]) {
       container.addProviderToPool(E_PROVIDER_TYPES.INJECT, provider);
     }
   });
-};
+}

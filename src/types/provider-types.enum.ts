@@ -4,4 +4,4 @@ export const enum E_PROVIDER_TYPES {
   INJECTABLE = 'injectable',
   INJECT = 'inject',
   MODULE = 'module',
-};
+}

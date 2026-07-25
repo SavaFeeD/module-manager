@@ -4,3 +4,4 @@ node_modules
 .git
 .lock-wscript
 stats.html
+rollup.config.mjs

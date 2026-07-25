@@ -6,7 +6,7 @@ export function of<T, M>(mapper: Map<T, M>) {
       value: entry[1],
     };
   });
-};
+}
 
 export function compose<T>(functions: ((arg: any) => T)[]) {
   return functions.reduce((acc, fn) => {

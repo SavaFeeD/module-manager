@@ -1,11 +1,9 @@
-import { Controller } from "../../src";
-import { AppService } from "./app.service";
+import { Controller } from '../../src';
+import { AppService } from './app.service';
 
 @Controller('app-co')
 export class AppController {
-  constructor(
-    private appService: AppService,
-  ) {};
+  constructor(private appService: AppService) {}
 
   buildInfo() {
     const bInfo = this.appService.getBuildInfo();
@@ -27,5 +25,4 @@ export class AppController {
     console.log('price:', price);
     return price;
   }
-
 }

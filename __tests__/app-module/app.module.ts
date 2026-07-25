@@ -1,8 +1,8 @@
-import { Module } from "../../src";
-import { AppController } from "./app.controller";
-import { AppRepository } from "./app.repository";
-import { AppService } from "./app.service";
-import { AbstractPriceService } from "./types/price-service.type";
+import { Module } from '../../src';
+import { AppController } from './app.controller';
+import { AppRepository } from './app.repository';
+import { AppService } from './app.service';
+import { AbstractPriceService } from './types/price-service.type';
 
 class PriceService implements AbstractPriceService {
   getPrice(currentCurrency: string) {
@@ -25,8 +25,8 @@ class PriceService implements AbstractPriceService {
     {
       token: 'PRICE_SERVICE',
       useFactory: PriceService,
-    }
+    },
   ],
   controllers: [AppController],
 })
-export class AppModule {};
+export class AppModule {}

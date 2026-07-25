@@ -6,9 +6,9 @@ import { E_PROVIDER_TYPES } from '../types/provider-types.enum';
 
 export function Injectable(): ClassDecorator {
   return (target) => {
-    container.addProviderToPool(E_PROVIDER_TYPES.INJECTABLE, target);   
+    container.addProviderToPool(E_PROVIDER_TYPES.INJECTABLE, target);
   };
-};
+}
 
 export function Inject(token: InjectToken): ParameterDecorator {
   return (target, _, parameterIndex) => {
@@ -19,4 +19,4 @@ export function Inject(token: InjectToken): ParameterDecorator {
     });
     Reflect.defineMetadata(E_TOKENS.INJECT_TOKENS, tokens, target);
   };
-};
+}
