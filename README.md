@@ -10,7 +10,7 @@ Key points:
 
 # Base sample
 
-An example of using all the features in one example is in the `__tests__` folder.
+An example of using all the features in one example is in the `__tests__` folder ([github link](https://github.com/SavaFeeD/module-manager/tree/master/__tests__)).
 
 # Start
 
