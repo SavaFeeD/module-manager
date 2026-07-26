@@ -11,7 +11,7 @@ import { E_TOKENS } from './types/tokens.enum';
 import { Container } from './container';
 import { TypeSpecifier } from './utils/type-specifier';
 
-const enum E_REGISTER_CALL_ORDER {
+enum E_REGISTER_CALL_ORDER {
   first = 'registerProviders',
   second = 'registerControllers',
 }

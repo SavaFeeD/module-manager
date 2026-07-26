@@ -1,4 +1,4 @@
-export const enum E_PROVIDER_TYPES {
+export enum E_PROVIDER_TYPES {
   CONTROLLER = 'controller',
   PROVIDER = 'provider',
   INJECTABLE = 'injectable',
