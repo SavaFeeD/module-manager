@@ -2,29 +2,17 @@ import { Module } from '../../src';
 import { AppController } from './app.controller';
 import { AppRepository } from './app.repository';
 import { AppService } from './app.service';
-import { AbstractPriceService } from './types/price-service.type';
-
-class PriceService implements AbstractPriceService {
-  getPrice(currentCurrency: string) {
-    return {
-      price: 100,
-      currency: currentCurrency,
-    };
-  }
-}
+import { PricingModule } from '../pricing-module/pricing.module';
 
 @Module({
   name: 'app-module',
+  imports: [PricingModule],
   providers: [
     AppService,
     AppRepository,
     {
       token: 'CONFIG_TOKEN',
       useValue: { configVersion: 1 },
-    },
-    {
-      token: 'PRICE_SERVICE',
-      useFactory: PriceService,
     },
   ],
   controllers: [AppController],

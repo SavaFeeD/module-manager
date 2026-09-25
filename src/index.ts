@@ -16,7 +16,13 @@ import {
 } from './types/tokens.types';
 import { Queue } from './utils/queue';
 import { TypeSpecifier } from './utils/type-specifier';
-import { E_PROVIDER_TYPES } from './types/provider-types.enum';
+import {
+  ModuleManagerError,
+  ProviderNotFoundError,
+  CircularDependencyError,
+  CircularImportError,
+  InvalidFactoryError,
+} from './errors';
 
 export {
   // '@core'
@@ -34,7 +40,6 @@ export {
   of,
   // '@types'
   AbstractModule,
-  E_PROVIDER_TYPES,
   E_TOKENS,
   FoundModuleDTO,
   ModuleOptions,
@@ -44,4 +49,10 @@ export {
   ControllerPrefix,
   InjectTokenObject,
   InjectProviderModel,
+  // '@errors'
+  ModuleManagerError,
+  ProviderNotFoundError,
+  CircularDependencyError,
+  CircularImportError,
+  InvalidFactoryError,
 };

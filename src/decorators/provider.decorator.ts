@@ -1,12 +1,10 @@
 import 'reflect-metadata';
-import { container } from '../container';
 import { InjectToken, InjectTokenObject } from '../types/tokens.types';
 import { E_TOKENS } from '../types/tokens.enum';
-import { E_PROVIDER_TYPES } from '../types/provider-types.enum';
 
 export function Injectable(): ClassDecorator {
   return (target) => {
-    container.addProviderToPool(E_PROVIDER_TYPES.INJECTABLE, target);
+    Reflect.defineMetadata(E_TOKENS.INJECTABLE, true, target);
   };
 }
 

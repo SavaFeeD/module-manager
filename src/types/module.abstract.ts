@@ -5,12 +5,16 @@ export abstract class AbstractModule {
   static readonly name?: string;
   static readonly controllers?: any[] = [];
   static readonly providers?: any[] = [];
+  static readonly imports?: (typeof AbstractModule)[] = [];
+  static readonly exports?: any[] = [];
 }
 
 export interface ModuleOptions {
   name?: string;
   providers?: any[];
   controllers?: any[];
+  imports?: (typeof AbstractModule)[];
+  exports?: any[];
 }
 
 export interface FoundModuleDTO {
