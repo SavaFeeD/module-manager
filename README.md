@@ -23,9 +23,9 @@ npm i @savafeed/module-manager
 or CDN:
 
 ```bash
-https://unpkg.com/@savafeed/module-manager@1.1.3/dist/index.cjs.js
-https://unpkg.com/@savafeed/module-manager@1.1.3/dist/index.esm.js
-https://unpkg.com/@savafeed/module-manager@1.1.3/dist/index.umd.js
+https://unpkg.com/@savafeed/module-manager@2.0.1/dist/index.cjs.js
+https://unpkg.com/@savafeed/module-manager@2.0.1/dist/index.esm.js
+https://unpkg.com/@savafeed/module-manager@2.0.1/dist/index.umd.js
 ```
 
 Main dependency - `reflect-metadata`
