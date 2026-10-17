@@ -15,7 +15,6 @@ import {
   InjectProviderModel,
 } from './types/tokens.types';
 import { Queue } from './utils/queue';
-import { TypeSpecifier } from './utils/type-specifier';
 import { InjectionToken } from './injection-token';
 import {
   ModuleManagerError,
@@ -36,7 +35,6 @@ export {
   Injectable,
   Inject,
   // '@utils'
-  TypeSpecifier,
   Queue,
   of,
   // '@types'

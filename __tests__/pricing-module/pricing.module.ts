@@ -17,7 +17,7 @@ export const PRICE_SERVICE = new InjectionToken<AbstractPriceService>('PRICE_SER
   providers: [
     {
       token: PRICE_SERVICE,
-      useFactory: PriceService,
+      useClass: PriceService,
     },
   ],
   exports: [PRICE_SERVICE],

@@ -5,6 +5,10 @@ import { AppRepository } from './app-module/app.repository';
 import { PRICE_SERVICE } from './pricing-module/pricing.module';
 import { FlagController, FlagModule } from './isolation-check/flag.module';
 import { LeakyModule } from './isolation-check/leaky.module';
+import { getFactoryCallCount } from './factory-check/factory.module';
+import { ConsumerAModule } from './factory-check/consumer-a.module';
+import { ConsumerBModule } from './factory-check/consumer-b.module';
+import './type-checks';
 
 const appModuleRef = container.registerModule(AppModule);
 const appController = container.getController<AppController>('app-co');
@@ -43,3 +47,13 @@ try {
     throw error;
   }
 }
+
+// useFactory must run exactly once per provider, even when two different
+// modules import the module that declares it (shared singleton, not per-importer).
+container.registerModule(ConsumerAModule);
+container.registerModule(ConsumerBModule);
+console.log(
+  getFactoryCallCount() === 1 ? 'PASS' : 'FAIL',
+  ': useFactory invoked exactly once across two importers ->',
+  getFactoryCallCount()
+);

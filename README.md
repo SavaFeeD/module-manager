@@ -139,7 +139,7 @@ export const PRICE_SERVICE = new InjectionToken<AbstractPriceService>('PRICE_SER
   providers: [
     {
       token: PRICE_SERVICE,
-      useFactory: PriceService,
+      useClass: PriceService,
     },
   ],
   exports: [PRICE_SERVICE],
@@ -158,6 +158,14 @@ export class AppModule {}
 ```
 
 A provider that exists in `PricingModule.providers` but is missing from `PricingModule.exports` stays private to `PricingModule` — importing it elsewhere and injecting that token throws a `ProviderNotFoundError`.
+
+A token provider (`{ token, ... }`) is built with exactly one of:
+
+- `useValue` - a precomputed value, used as-is (including falsy values like `0`/`false`/`''`);
+- `useClass` - a class, instantiated with `new` (no constructor arguments are resolved for it);
+- `useFactory` - a plain function, called with no arguments and used as-is (not called with `new`).
+
+`useClass` and `useFactory` are deliberately separate - telling a class and a plain function apart reliably isn't possible without actually calling the value, so guessing isn't done. Put a class in `useClass`; put everything else in `useFactory`.
 
 ## Typed tokens: `InjectionToken` and `getProvider`
 
