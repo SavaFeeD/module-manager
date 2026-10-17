@@ -1,10 +1,12 @@
 import { container, ProviderNotFoundError } from '../src';
 import { AppController } from './app-module/app.controller';
 import { AppModule } from './app-module/app.module';
+import { AppRepository } from './app-module/app.repository';
+import { PRICE_SERVICE } from './pricing-module/pricing.module';
 import { FlagController, FlagModule } from './isolation-check/flag.module';
 import { LeakyModule } from './isolation-check/leaky.module';
 
-container.registerModule(AppModule);
+const appModuleRef = container.registerModule(AppModule);
 const appController = container.getController<AppController>('app-co');
 appController?.buildInfo();
 appController?.createPerson({
@@ -12,6 +14,15 @@ appController?.createPerson({
 });
 appController?.pricing();
 console.log(container.getModuleByName('app-module'));
+
+// getProvider(SomeClass) is typed from the constructor - no generic needed.
+const appRepository = appModuleRef.getProvider(AppRepository);
+console.log('PASS: getProvider(AppRepository) ->', appRepository?.getPrice());
+
+// getProvider(someInjectionToken) is typed from the token, even across an
+// imports/exports boundary (PRICE_SERVICE is declared in PricingModule).
+const priceService = appModuleRef.getProvider(PRICE_SERVICE);
+console.log('PASS: getProvider(PRICE_SERVICE) ->', priceService?.getPrice('USD'));
 
 // Cross-module import/export, including a falsy useValue (regression check).
 container.registerModule(FlagModule);

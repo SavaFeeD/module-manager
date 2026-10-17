@@ -1,9 +1,9 @@
 import { Inject, Injectable, Module } from '../../src';
-import { SecretModule } from './secret.module';
+import { SECRET_TOKEN, SecretModule } from './secret.module';
 
 @Injectable()
 export class LeakyService {
-  constructor(@Inject('SECRET_TOKEN') private readonly secret: string) {}
+  constructor(@Inject(SECRET_TOKEN) private readonly secret: string) {}
 }
 
 @Module({

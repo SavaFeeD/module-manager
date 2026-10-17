@@ -1,9 +1,9 @@
 import { Controller, Inject, Injectable, Module } from '../../src';
-import { SecretModule } from './secret.module';
+import { FEATURE_FLAG, SecretModule } from './secret.module';
 
 @Injectable()
 export class FlagService {
-  constructor(@Inject('FEATURE_FLAG') private readonly flag: boolean) {}
+  constructor(@Inject(FEATURE_FLAG) private readonly flag: boolean) {}
 
   getFlag() {
     return this.flag;

@@ -84,7 +84,7 @@ Dependency sample:
 ```ts
 @Injectable()
 export class AppRepository {
-  constructor(@Inject('PRICE_SERVICE') private priceService: AbstractPriceService) {}
+  constructor(@Inject(PRICE_SERVICE) private priceService: AbstractPriceService) {}
 
   mock() {
     return schema || {};
@@ -132,15 +132,17 @@ export class AppModule {}
 Each module has its own provider scope: a provider (class or token) declared in one module is **not** visible to other modules by default. To share a provider across modules, the owning module must list it in `exports`, and the consuming module must list the owning module in `imports`:
 
 ```ts
+export const PRICE_SERVICE = new InjectionToken<AbstractPriceService>('PRICE_SERVICE');
+
 @Module({
   name: 'pricing-module',
   providers: [
     {
-      token: 'PRICE_SERVICE',
+      token: PRICE_SERVICE,
       useFactory: PriceService,
     },
   ],
-  exports: ['PRICE_SERVICE'],
+  exports: [PRICE_SERVICE],
 })
 export class PricingModule {}
 ```
@@ -148,7 +150,7 @@ export class PricingModule {}
 ```ts
 @Module({
   name: 'app-module',
-  imports: [PricingModule], // makes 'PRICE_SERVICE' resolvable here
+  imports: [PricingModule], // makes PRICE_SERVICE resolvable here
   providers: [AppService, AppRepository],
   controllers: [AppController],
 })
@@ -156,6 +158,27 @@ export class AppModule {}
 ```
 
 A provider that exists in `PricingModule.providers` but is missing from `PricingModule.exports` stays private to `PricingModule` — importing it elsewhere and injecting that token throws a `ProviderNotFoundError`.
+
+## Typed tokens: `InjectionToken` and `getProvider`
+
+A class used as a provider is already typed — `@Inject` isn't even needed for it, and `moduleRef.getProvider(SomeClass)` infers `SomeClass` automatically from its constructor.
+
+A string token (`'PRICE_SERVICE'`) carries no type at compile time, so `@Inject('PRICE_SERVICE')` and `getProvider('PRICE_SERVICE')` fall back to `any`. `InjectionToken<T>` is a typed drop-in replacement for string tokens — the type parameter exists only at compile time (purely for inference, nothing changes at runtime) and is compared by reference, so always import the same token value rather than re-creating it:
+
+```ts
+export const PRICE_SERVICE = new InjectionToken<AbstractPriceService>('PRICE_SERVICE');
+
+@Injectable()
+export class AppRepository {
+  constructor(@Inject(PRICE_SERVICE) private priceService: AbstractPriceService) {}
+}
+
+const priceService = appModuleRef.getProvider(PRICE_SERVICE); // AbstractPriceService | undefined
+```
+
+Plain string tokens keep working everywhere (`getProvider` just returns `any` for them) — moving to `InjectionToken<T>` is opt-in, not a breaking change.
+
+`getProvider` follows the same `imports`/`exports` visibility as regular injection: it returns a module's own providers plus anything exported by its `imports`, and `undefined` for anything that isn't visible to that module (it does not throw).
 
 ## Errors
 
@@ -189,8 +212,9 @@ Example of registering a module in a container:
 import { container } from '../src';
 import { AppController } from './app-module/app.controller';
 import { AppModule } from './app-module/app.module';
+import { AppRepository } from './app-module/app.repository';
 
-container.registerModule(AppModule);
+const appModuleRef = container.registerModule(AppModule);
 
 const appController = container.getController<AppController>('app-co');
 
@@ -203,4 +227,7 @@ appController?.createPerson({
 appController?.pricing();
 
 console.log(container.getModuleByName('app-module'));
+
+// registerModule returns the module's ModuleRef, with typed access to its providers
+const appRepository = appModuleRef.getProvider(AppRepository); // AppRepository | undefined
 ```

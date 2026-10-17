@@ -16,6 +16,7 @@ import {
 } from './types/tokens.types';
 import { Queue } from './utils/queue';
 import { TypeSpecifier } from './utils/type-specifier';
+import { InjectionToken } from './injection-token';
 import {
   ModuleManagerError,
   ProviderNotFoundError,
@@ -39,6 +40,7 @@ export {
   Queue,
   of,
   // '@types'
+  InjectionToken,
   AbstractModule,
   E_TOKENS,
   FoundModuleDTO,

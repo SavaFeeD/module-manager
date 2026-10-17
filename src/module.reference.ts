@@ -9,6 +9,7 @@ import {
 } from './types/tokens.types';
 import { E_TOKENS } from './types/tokens.enum';
 import { TypeSpecifier } from './utils/type-specifier';
+import { InjectionToken } from './injection-token';
 import {
   CircularDependencyError,
   InvalidFactoryError,
@@ -145,5 +146,18 @@ export class ModuleRef {
     controllerToken: ControllerPrefix | ControllerToken
   ): ControllerInstance | undefined {
     return this.controllers.get(controllerToken) as ControllerInstance;
+  }
+
+  public getProvider<T>(token: InjectionToken<T>): T | undefined;
+  public getProvider<T>(token: new (...args: any[]) => T): T | undefined;
+  public getProvider(token: ProviderToken): any;
+  public getProvider(token: ProviderToken): any {
+    if (this.providers.has(token)) return this.providers.get(token);
+
+    for (const importedModule of this.importedModules) {
+      if (importedModule.canExport(token)) return importedModule.getProvider(token);
+    }
+
+    return undefined;
   }
 }

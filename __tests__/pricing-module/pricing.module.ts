@@ -1,4 +1,4 @@
-import { Module } from '../../src';
+import { InjectionToken, Module } from '../../src';
 import { AbstractPriceService } from '../app-module/types/price-service.type';
 
 class PriceService implements AbstractPriceService {
@@ -10,14 +10,16 @@ class PriceService implements AbstractPriceService {
   }
 }
 
+export const PRICE_SERVICE = new InjectionToken<AbstractPriceService>('PRICE_SERVICE');
+
 @Module({
   name: 'pricing-module',
   providers: [
     {
-      token: 'PRICE_SERVICE',
+      token: PRICE_SERVICE,
       useFactory: PriceService,
     },
   ],
-  exports: ['PRICE_SERVICE'],
+  exports: [PRICE_SERVICE],
 })
 export class PricingModule {}
